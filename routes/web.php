@@ -11,6 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    if (Auth::check()) {
+        return redirect('/');
+    } else {
+        return view('index');
+    }
 });
+
+Route::get('/', function () { 
+    if (Auth::check()) {
+        return view('index');
+    } else {
+        return redirect('/login');
+    }
+});
+
+Route::get('/{any}', function ($any) {
+    if (Auth::check()) {
+        return view('index');
+    } else {
+        return redirect('/login');
+    }
+})->where('any', '.*');
