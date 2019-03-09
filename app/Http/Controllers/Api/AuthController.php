@@ -19,8 +19,8 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $attempt = Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]);
-        if ($attempt) {            
+        $attempt = Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true);
+        if ($attempt) {                   
             return response([
                 'message' => 'Sucesso!',                
             ], 200);
@@ -47,5 +47,5 @@ class AuthController extends Controller
         } else {
             return response(['error' => 'Não foi possível adicionar um novo usuário.'], 400);
         }
-    }
+    }    
 }

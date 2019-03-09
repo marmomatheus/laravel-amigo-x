@@ -19,7 +19,7 @@ Route::get('/login', function () {
     }
 });
 
-Route::get('/', function () { 
+Route::get('/', function () {        
     if (Auth::check()) {
         return view('index');
     } else {
