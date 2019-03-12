@@ -30,7 +30,7 @@
                                     <v-window-item :value="3">
                                         <div class="pa-3 text-xs-center">                                            
                                             <h3 class="title font-weight-light mb-2">Bem Vindo!</h3>
-                                            <span class="caption grey--text">Faça <a to="'/login'">login</a> para continuar</span>
+                                            <span class="caption grey--text">Faça <a href="/login">login</a> para continuar</span>
                                         </div>
                                     </v-window-item>
                                 </v-window>

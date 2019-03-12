@@ -20,7 +20,7 @@ class UserRepository
         $user->email = $validated['email'];		
 		$user->username = $validated['username'];
         
-        if (isset($validated['password'])) {			
+        if (isset($validated['password']) && $validated['password'] != null) {			
         	$user->password = Hash::make($validated['password']);
         }
         

@@ -10,32 +10,20 @@ use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 
 class AuthController extends Controller
-{       
-    /**
-     * Realiza uma tentativa de login
-     *
-     * @param  \App\Http\Requests\LoginRequest $request
-     * @return \Illuminate\Http\Response
-     */
+{  
     public function login(LoginRequest $request)
     {
         $attempt = Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true);
         if ($attempt) {                   
             return response([
-                'message' => 'Sucesso!',                
+                'message' => 'Sucesso!',
+                'user' => Auth::user()                
             ], 200);
         } else {
             return response(['error' => 'Dados Inválidos!'], 401);
         }
     }
   
-    /**
-     * Cria um novo usuário e sua respectiva empresa e retorna o token de autenticação.
-     *
-     * @param  \App\Http\Requests\UserRequest  $requestUser
-     * @param  \App\Repositories\UserRepository $repositoryUser     
-     * @return \Illuminate\Http\Response
-     */
     public function register(UserRequest $requestUser, UserRepository $repositoryUser)
     {         
         $user = $repositoryUser->save($requestUser);
@@ -47,5 +35,10 @@ class AuthController extends Controller
         } else {
             return response(['error' => 'Não foi possível adicionar um novo usuário.'], 400);
         }
-    }    
+    }
+    
+    public function logout()
+    {
+        return Auth::logout();        
+    }
 }

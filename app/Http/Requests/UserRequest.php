@@ -25,10 +25,24 @@ class UserRequest extends FormRequest
     {
         $createRules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:191|unique:users',
+            'email' => 'required|string|email|max:191',
             'username' => 'required|string',
             'password' => 'required|string|min:6|confirmed'
         ];     
+
+        switch($this->method()) {
+            case 'POST':
+                $createRules['email'] .= '|unique:users';
+                $createRules['username'] .= '|unique:users';
+                return $createRules;
+                break;
+            case 'PUT':
+                $createRules['password'] = str_replace('required', 'nullable', $createRules['password']);               
+                break;
+            default:
+                return [];
+                break;
+        }
         
         return $createRules;
         

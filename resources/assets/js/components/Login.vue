@@ -120,6 +120,7 @@
 				axios.post(this.$utils.apiPath('login'), this.fields)
 				.then(response => {	
 					this.loading = false;	
+					localStorage.setItem('user', JSON.stringify(response.data.user));
 					this.$router.push('/');
 				})
 				.catch(error => {
