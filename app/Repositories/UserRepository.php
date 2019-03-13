@@ -12,6 +12,7 @@ class UserRepository
 	{
 		if ($id != NULL) {
 			$user = User::findOrFail($id);
+			$user->gifts()->delete();
 		} else {
 			$user = new User();
 		}
@@ -22,7 +23,11 @@ class UserRepository
         
         if (isset($validated['password']) && $validated['password'] != null) {			
         	$user->password = Hash::make($validated['password']);
-        }
+		}		
+
+		if ($validated['gifts']) {
+			$user->gifts()->createMany($validated['gifts']);
+		}
         
         if (!$user->save()) {
         	return false;

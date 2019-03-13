@@ -29,6 +29,54 @@
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
+                        <v-flex xs12>
+									<v-card>
+										<v-toolbar dense class="elevation-0">
+											<v-toolbar-title>
+												Presentes Desejados
+											</v-toolbar-title>
+											
+											<v-spacer></v-spacer>
+											 
+											<v-tooltip bottom v-if="!loading">
+												<v-btn icon slot="activator" @click="addGift">
+													<v-icon>add</v-icon>
+												</v-btn>
+												
+												<span>Adicionar Presente</span>
+											</v-tooltip>
+										</v-toolbar>
+
+										<v-card-text>
+											<v-layout row wrap>
+												<v-flex xs12 lg6 v-for="(gift, i) in fields.gifts" :key="i">
+													<v-layout row wrap>
+														<v-flex xs12 lg10>
+															<v-text-field
+																label="Nome"
+																:rules="[$ValidatioRules.required]"
+																:disabled="loading"
+																v-model="fields.gifts[i].name"
+															></v-text-field>
+                                                        </v-flex>
+                                                        <v-flex xs12 lg2>
+                                                            <v-tooltip
+                                                                slot="append-outer"
+                                                                bottom
+                                                            >
+                                                                <v-btn icon slot="activator" @click="removeGift(i)">
+                                                                    <v-icon>delete</v-icon>
+                                                                </v-btn>
+                                                                Remover Presente
+                                                            </v-tooltip>
+														</v-flex>
+													</v-layout>
+												</v-flex>
+											</v-layout>
+										</v-card-text>
+									</v-card>
+								</v-flex>
+
                         
                        <v-card-actions>
                             <v-spacer></v-spacer>                          
@@ -71,7 +119,10 @@
                 email: null,
                 username: null,
                 password: null,
-                password_confirmation: null
+                password_confirmation: null,
+                gifts: [{
+                    name: null
+                }],
             },
             loading: false,
             pageLoading: false,
@@ -89,9 +140,30 @@
                         this.fields.username = response.data.username;
                         this.fields.email = response.data.email;
 
+                        this.fields.gifts = response.data.gifts;
+
+                        if (this.fields.gifts.length == 0 || this.fields.gifts == null) {
+                            this.fields.gifts = [{
+                                name: null,
+                                email: null,
+                            }];
+				        } 
                     });
 
             },
+
+            addGift () {
+				this.fields.gifts.push({
+					name: null,
+					phone: null,
+				});
+			},
+
+			removeGift (toRemove) {
+				this.fields.gifts = this.fields.gifts.filter((item, i) => {
+					return i != toRemove;
+				});
+			},
 
             submit(e) {
                 e.preventDefault();

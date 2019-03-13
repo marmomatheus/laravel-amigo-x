@@ -27,7 +27,10 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:191',
             'username' => 'required|string',
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:6|confirmed',
+
+            'gifts' => 'nullable|array',            
+            'gifts.*.name' => 'required|string|max:255'
         ];     
 
         switch($this->method()) {
