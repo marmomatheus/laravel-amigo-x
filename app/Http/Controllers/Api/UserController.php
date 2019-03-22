@@ -12,13 +12,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        
+        return User::where('id', '!=', auth()->user()->id)
+                    ->get();
     }
     
     public function show($id)
     {
-        $user = User::with('gifts')->findOrFail($id);
-        return $user;
+        $user = User::with('gifts')
+                    ->findOrFail($id);
+        return $user;   
     }
 
     public function store(Request $request)

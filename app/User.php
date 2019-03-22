@@ -41,4 +41,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Gift');
     }
+
+    public function createdGroups()
+    {
+        return $this->hasMany('App\Group', 'groups', 'creator_id');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
+    }
 }
