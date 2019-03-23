@@ -66,9 +66,9 @@
                             <v-list-tile-action>
                                 <v-tooltip left>
                                     <template>
-                                        <v-icon slot="activator" :color="item.confirmed ? 'green' : 'red'">done</v-icon>
+                                        <v-icon slot="activator" :color="item.pivot.confirmed ? 'green' : 'red'">done</v-icon>
                                     </template>
-                                    <span>{{ item.confirmed ? 'Confirmado' : 'Não Confirmado' }}</span>
+                                    <span>{{ item.pivot.confirmed ? 'Confirmado' : 'Não Confirmado' }}</span>
                                 </v-tooltip>
                             </v-list-tile-action>
                         </v-list-tile>

@@ -49,6 +49,24 @@ class GroupController extends Controller
 
     public function confirmParticipation($token)
     {
-        echo $token;
+        $group = Group::with(['participants'])                    
+                    ->whereHas('participants', function($q) use($token){
+                        $q->where('group_user.token', $token);
+                    })                    
+                    ->first();
+        
+        $userToConfirm = $group->participants()
+                                ->where('token', $token)
+                                ->get();
+
+        if($userToConfirm[0]->pivot->confirmed == true){
+            $data['confirmationText'] = 'Sua participação já foi confirmada.';
+        }else{
+            $userToConfirm[0]->pivot->confirmed = true;
+            $userToConfirm[0]->pivot->save();
+            $data['confirmationText'] = 'Sucesso! Sua participação foi confirmada.';
+        }
+        
+        return view('confirmation', $data); 
     }
 }
