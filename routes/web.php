@@ -10,6 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/demo', function () {
+    $group = \App\Group::with(['creator', 'participants'])->first();
+    $partipants = $group->participants->toArray();
+    
+    return new App\Mail\GroupConfirmation($partipants[0], $group);
+});
+
+
+Route::get('/confirm-particion/{token}', 'Api\GroupController@confirmParticipation');
 
 Route::get('/login', function () {
     if (Auth::check()) {

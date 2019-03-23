@@ -28,6 +28,7 @@ class GroupController extends Controller
     public function store(GroupRequest $requestGroup, GroupRepository $repositoryGroup)
     {
         $group = $repositoryGroup->save($requestGroup);
+       
         if ($group) {                                  
             return response([
                 'message' => 'Sucesso! Os usuários adicionados serão notificados.'
@@ -44,5 +45,10 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function confirmParticipation($token)
+    {
+        echo $token;
     }
 }

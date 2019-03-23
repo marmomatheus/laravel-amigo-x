@@ -13,6 +13,6 @@ class Group extends Model
     
     public function participants()
     {
-        return $this->belongsToMany('App\User')->withPivot('confirmed');
+        return $this->belongsToMany('App\User')->withPivot('confirmed', 'token');
     }
 }
