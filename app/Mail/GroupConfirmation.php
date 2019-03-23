@@ -33,6 +33,7 @@ class GroupConfirmation extends Mailable
     public function build()
     {
         return $this->markdown('emails.confirm_participation')
+                    ->subject('Confirmar participação em grupo - Amigo X')
                     ->with([
                         'groupName' => $this->group->name,
                         'groupCreatorName' => $this->group->creator->name,

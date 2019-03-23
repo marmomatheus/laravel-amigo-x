@@ -1,7 +1,7 @@
 @component('mail::message')
 # Olá, {{ $participantName }}
 
-Você foi adicionado em uma novo grupo de amigo secreto
+Você foi adicionado em um novo grupo de amigo secreto
 
 **Nome do grupo:** {{ $groupName }}  
 **Criador:** {{ $groupCreatorName }}
