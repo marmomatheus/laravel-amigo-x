@@ -12,11 +12,16 @@ class GroupController extends Controller
 {
     public function index()
     {   
-        return Group::with(['participants', 'creator'])                    
-                    ->whereHas('participants', function($q){
-                        $q->where('group_user.user_id', auth()->user()->id);
-                    })                    
-                    ->get();
+        $group = Group::with(['participants', 'creator'])                    
+                        ->whereHas('participants', function($q){
+                            $q->where('group_user.user_id', auth()->user()->id);
+                        });
+        
+        if (request()->has('selfOnly')) {
+           $group->where('creator_id', auth()->user()->id);
+        }
+
+        return  $group->get();
     }
     
     public function show($id)
@@ -59,9 +64,9 @@ class GroupController extends Controller
                                 ->where('token', $token)
                                 ->get();
 
-        if($userToConfirm[0]->pivot->confirmed == true){
+        if ($userToConfirm[0]->pivot->confirmed == true) {
             $data['confirmationText'] = 'Sua participação já foi confirmada.';
-        }else{
+        } else {
             $userToConfirm[0]->pivot->confirmed = true;
             $userToConfirm[0]->pivot->save();
             $data['confirmationText'] = 'Sucesso! Sua participação foi confirmada.';

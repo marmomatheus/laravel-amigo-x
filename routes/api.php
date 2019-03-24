@@ -15,6 +15,12 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
-Route::apiResource('users', 'Api\UserController');
-Route::apiResource('groups', 'Api\GroupController');
-Route::post('logout', 'Api\AuthController@logout')->middleware('auth');
+
+Route::middleware('auth')->namespace('Api')->group(function () {
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('groups', 'GroupController');
+    Route::apiResource('games', 'GameController');    
+    Route::post('logout', 'AuthController@logout');
+});
+
+

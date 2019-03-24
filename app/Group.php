@@ -15,4 +15,9 @@ class Group extends Model
     {
         return $this->belongsToMany('App\User')->withPivot('confirmed', 'token');
     }
+
+    public function games()
+    {
+        return $this->belongsTo('App\Game');
+    }
 }

@@ -10,6 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/demo', function () {
+    $group = \App\Group::with('participants')->findOrFail(20);
+    $participantModel = \App\User::select('email', 'name')
+    ->where('id', 1)
+    ->first();
+    $friendModel = \App\User::with('gifts')
+    ->where('id', 3)
+    ->first();
+    return new App\Mail\GameNotification($group, $participantModel, $friendModel, '21/04/2019');
+});
+
 
 Route::get('confirm-participation/{token}', 'Api\GroupController@confirmParticipation');
 

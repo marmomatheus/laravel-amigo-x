@@ -13,6 +13,11 @@ let modules = [
 		name: 'Grupos',
 		slug: 'grupos',
 		icon: 'group'
+	},
+	{
+		name: 'Sorteios',
+		slug: 'sorteios',
+		icon: 'repeat'
 	}
 ];
 

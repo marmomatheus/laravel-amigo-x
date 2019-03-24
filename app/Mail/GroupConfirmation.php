@@ -12,6 +12,8 @@ class GroupConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $group, $participant;
+
     /**
      * Create a new message instance.
      *
@@ -22,9 +24,8 @@ class GroupConfirmation extends Mailable
         $this->participant = $participant;
         $this->group = $group;
     }
-
-    protected $group, $participant;
-
+  
+    
     /**
      * Build the message.
      *
