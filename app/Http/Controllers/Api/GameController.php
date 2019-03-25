@@ -12,7 +12,11 @@ class GameController extends Controller
 {
     public function index()
     {   
-        return Game::with('group')->get();
+        return Game::with('group')
+                    ->whereHas('group', function($q){
+                            $q->where('creator_id', auth()->user()->id);
+                    })
+                    ->get();
     }
     
     public function show($id)
