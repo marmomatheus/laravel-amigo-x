@@ -54,7 +54,7 @@ class GameRepository
                                     ->first();
             $friendModel = User::with('gifts')
                                 ->select('name')
-                                ->where('id', $match['user_id'])
+                                ->where('id', $match['friend_id'])
                                 ->first();
 
             Mail::to($participantModel->email)->send(new GameNotification($group, $participantModel, $friendModel, $date));
